@@ -6,11 +6,11 @@ const bodyparser = require('body-parser');
 const path = require('path');
 const port = 8000;
 
-var url=bodyparser.urlencoded({extended:false});
-//app.use(bodyparser.urlencoded({ extended: false }));
+var url = bodyparser.urlencoded({ extended: false });
 app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
 
-mongoose.connect('mongodb://127.0.0.1:27017/Experiment7');
+mongoose.connect('mongodb://127.0.0.1:27017/Experiment7', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const studentSchema = new mongoose.Schema({
     name: String,
@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 app.post('/table', url, async (req, res) => {
     const detail = new Details({
-        name: req.body.rollnumber,
+        name: req.body.name,
         rollNumber: req.body.rollnumber,
         email: req.body.email,
         department: req.body.department
@@ -35,7 +35,9 @@ app.post('/table', url, async (req, res) => {
 
     await detail.save();
 
-    res.send("File added successfully");
+    const details = await Details.find({});
+
+    res.render('table.ejs', { details: details });
 });
 
 app.listen(port, () => {
