@@ -17,6 +17,7 @@
             <th>Roll Number</th>
             <th>Email</th>
             <th>Department</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +27,11 @@
                 <td><%= detail.rollNumber %></td>
                 <td><%= detail.email %></td>
                 <td><%= detail.department %></td>
+                <td>
+                    <form action="/delete/<%= detail._id %>" method="GET">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
         <% }); %>
         </tbody>
