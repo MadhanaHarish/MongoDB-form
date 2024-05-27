@@ -40,6 +40,30 @@ app.post('/table', async (req, res) => {
     res.render('table', { details: details, deletes: false});
 });
 
+app.get('/update', async (req, res) => {
+    const details = await Details.find({});
+    res.render('tableUpdate', { details: details});
+});
+
+app.get('/update/updateform/:id', async (req, res) => {
+    const detail = await Details.findById(req.params.id);
+    res.render('updateForm',{detail: detail});
+});
+app.post('/update/updatedform/:id', async (req, res) => {
+    let name = req.body.name;
+    let rollNumber = req.body.rollNumber;
+    let email = req.body.email;
+    let department = req.body.department;
+    await Details.findByIdAndUpdate(req.params.id, {
+        name,
+        rollNumber,
+        email,
+        department
+    });
+    const details = await Details.find({});
+    res.render('tableUpdate', { details: details });
+});
+
 app.get('/delete', async (req, res) => {
     const details = await Details.find({});
     res.render('tableDelete', { details: details});

@@ -56,9 +56,18 @@
             </div>
             <input type="Submit" value="Add" id="submit" class="btn btn-primary col-2 mt-2">
         </form>
-        <form action="http://localhost:8000/delete" method="get">
-            <button type="submit" id="deleteButton" class="btn btn-danger mt-2 col-2">Delete</button>
-        </form>
+        <div class="row">
+            <div class="col-6">
+                <form action="http://localhost:8000/delete" method="get">
+                    <button type="submit" id="deleteButton" class="btn btn-danger mt-2 col-2">Delete</button>
+                </form>
+            </div>
+            <div class="col-6">
+                <form action="http://localhost:8000/update" method="get">
+                    <button type="submit" id="updateButton" class="btn btn-danger mt-2 col-2">Update</button>
+                </form>
+            </div>
+        </div>
     </div>
     <script>
         function validateForm() {
